@@ -13,10 +13,8 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 " golang plugin 
 Plugin 'fatih/vim-go'
-" auto-complete for go 
-Plugin 'Valloric/YouCompleteMe'
-" Ack (Fancy grep)
-Plugin 'mileszs/ack.vim'
+" plugin for jumping between declarations
+Plugin 'ctrlpvim/ctrlp.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -85,7 +83,9 @@ set tabstop=4
 set expandtab
 
 "use clipboard for all copy operations
-set clipboard=unnamed
+if $TMUX == ''
+    set clipboard=unnamed
+endif
 
 "set lines and colums
 "set lines=45
@@ -104,7 +104,7 @@ if exists("syntax_on")
 	syntax reset
 endif
 
-let colors_name = "herald"
+"let colors_name = "herald"
 
 set background=dark
 
@@ -532,12 +532,6 @@ endfunction
 map cl  :call DefCo()<CR>
 
 """""""""""""""""""""""""""""
-"source the cscope map file
-"""""""""""""""""""""""""""""
-source ~/cscope_maps.vim
-map csr :!cscope -q<CR>:cs reset<CR><CR>
-
-"""""""""""""""""""""""""""""
 " enable minibuffer-explorer
 """"""""""""""""""""""""""""""
 "let miniBufExplVSplit = 25   "vertical mini-buf column width in chars
@@ -557,14 +551,6 @@ set hidden               " allow to move around buffer even when there are unsav
 let Tlist_Use_Right_Window = 1  "use right window for tag list
 source ~/taglist.vim
 nnoremap <silent> <F8> :TlistToggle<CR>
-
-"""""""""""""""""""
-" use ctags from /usr/bin by overriding
-" the PATH set by cisco environment
-"""""""""""""""""""
-let pathVar = '/usr/bin:'
-let pathVar .= $PATH
-let $PATH = pathVar
 
 """""""""""""""""
 " 80 column and highlight cursor
@@ -625,6 +611,7 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1
 let g:ycm_autoclose_preview_window_after_completion = 1 
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 let g:tagbar_type_go = {
@@ -655,8 +642,58 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
     \ }
 
+func GoTags()
+    " cscope like key mapping for go-plugin
+    nmap <C-\>g :GoDef<CR>
+    nmap <C-\>s :GoReferrers<CR>
+    nmap <C-\>c :GoCallees<CR>
+    nmap <C-\>e :GoCallers<CR>
+    nmap <C-\>k :GoCallstack<CR>
+    nmap <C-\>d :GoInfo<CR>
+    nmap <C-\>i :GoImplements<CR>
+    nmap <C-\>t :GoDeclsDir<CR>
+    " package related
+    nmap <C-\>f :GoFiles<CR>
+    nmap <C-\>p :GoDeps<CR>
+    " refactor
+    nmap <C-\>r :GoRename<CR>
+
+endfunction
+
+let g:cscope_tags_loaded=0
+func CscopeTags()
+    if g:cscope_tags_loaded == 0
+        "source the cscope map file
+        source ~/cscope_maps.vim
+        map csr :!cscope -q<CR>:cs reset<CR><CR>
+        let g:cscope_tags_loaded=1
+    endif
+endfunction
+
 au BufWinEnter,BufRead,BufNewFile *.md          setfiletype markdown
 au BufWinEnter,BufRead,BufNewFile *.go          setfiletype go
 au BufWinEnter,BufRead,BufNewFile *.json        setfiletype javascript
+" load cscope code navigation key map by default
+au BufWinEnter,BufRead,BufNewFile,BufEnter *             call CscopeTags()
+" load golang specific code navigation key maps
+au BufWinEnter,BufRead,BufNewFile,BufEnter *.go          call GoTags()
 """""""""""""""""
 
+""""""
+"use relative nummber for ease of movement
+"""""""
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+" use ctrl+n to taggle between numbering
+nnoremap <C-n> :call NumberToggle()<cr>
+
+"au FocusLost * :set number
+"au FocusGained * :set relativenumber
+"au InsertEnter * :set number
+"au InsertLeave * :set relativenumber
