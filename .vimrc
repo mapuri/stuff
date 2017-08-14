@@ -15,10 +15,15 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'fatih/vim-go'
 " plugin for jumping between declarations
 Plugin 'ctrlpvim/ctrlp.vim'
-" tagbar plugin
+" tagbar plugin - for navigating source
 Plugin 'majutsushi/tagbar'
-" minibufexplorer plugin
+" minibufexplorer plugin - for navigating buffers
 Plugin 'weynhamz/vim-plugin-minibufexpl'
+" vimpowerline plugin - for status line
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+" git integration
+Plugin 'tpope/vim-fugitive'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -547,6 +552,14 @@ map <F4> :hide<CR>       " map F4 to hide open window/buffer
 hi MBEChanged guibg=darkblue ctermfg=green ctermbg=white
 hi MBENormal guibg=darkblue ctermfg=green ctermbg=white
 set hidden               " allow to move around buffer even when there are unsaved changes
+
+"""""""""""""""""""
+" customize vim-airline
+"""""""""""""""""""
+" requires fonts installed (on local machine running the terminal) from: https://github.com/powerline/fonts
+" after installing set the font to: 'Meslo LG S' in iTerm2
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'jellybeans'
 
 """""""""""""""""""
 " enable tagbar
