@@ -15,6 +15,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'fatih/vim-go'
 " plugin for jumping between declarations
 Plugin 'ctrlpvim/ctrlp.vim'
+" tagbar plugin
+Plugin 'majutsushi/tagbar'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -546,11 +548,10 @@ hi MBENormal guibg=darkblue ctermfg=green ctermbg=white
 set hidden               " allow to move around buffer even when there are unsaved changes
 
 """""""""""""""""""
-" enable taglist
+" enable tagbar
 """""""""""""""""""
-let Tlist_Use_Right_Window = 1  "use right window for tag list
-source ~/taglist.vim
-nnoremap <silent> <F8> :TlistToggle<CR>
+let g:tagbar_left = 1
+nnoremap <silent> <F8> :TagbarToggle<CR>
 
 """""""""""""""""
 " 80 column and highlight cursor
@@ -657,7 +658,11 @@ func GoTags()
     nmap <C-\>p :GoDeps<CR>
     " refactor
     nmap <C-\>r :GoRename<CR>
+endfunction
 
+func GoEnv()
+    " add pwd to the GOPATH
+    let $GOPATH .= ':'.$PWD
 endfunction
 
 let g:cscope_tags_loaded=0
@@ -677,6 +682,7 @@ au BufWinEnter,BufRead,BufNewFile *.json        setfiletype javascript
 au BufWinEnter,BufRead,BufNewFile,BufEnter *             call CscopeTags()
 " load golang specific code navigation key maps
 au BufWinEnter,BufRead,BufNewFile,BufEnter *.go          call GoTags()
+au BufWinEnter,BufRead,BufNewFile *.go          call GoEnv()
 """""""""""""""""
 
 """"""
