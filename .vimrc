@@ -17,6 +17,8 @@ Plugin 'fatih/vim-go'
 Plugin 'ctrlpvim/ctrlp.vim'
 " tagbar plugin
 Plugin 'majutsushi/tagbar'
+" minibufexplorer plugin
+Plugin 'weynhamz/vim-plugin-minibufexpl'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -537,7 +539,6 @@ map cl  :call DefCo()<CR>
 " enable minibuffer-explorer
 """"""""""""""""""""""""""""""
 "let miniBufExplVSplit = 25   "vertical mini-buf column width in chars
-source ~/minibufexpl.vim
 nnoremap <silent> <F7> :TMiniBufExplorer<CR>
 map <F1> :<C-U>exe "buffer".v:count<CR> " map F1 to open specific buffer. usage '<buff-num><F3>'
 map <F2> :bprevious<CR>  " map F2 to open previous buffer
