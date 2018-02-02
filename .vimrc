@@ -55,7 +55,7 @@ set ruler           " show the cursor position all the time
 set novisualbell    " turn off visual bell
 set noerrorbells
 set number          " show line numbers; this is set by autocmd for each buffer type
-set ignorecase      " ignore case when searching
+set smartcase       " ignore case when searching for all lower case characters
 set title           " show title in console title bar
 set ttyfast         " smoother changes
 "set ttyscroll=0        " turn off scrolling, didn't work well with PuTTY
@@ -254,7 +254,7 @@ endfunction
 
 func GoEnv()
     " add pwd to the GOPATH
-    let $GOPATH .= ':'.$PWD
+    " let $GOPATH .= ':'.$PWD
 endfunction
 
 let g:cscope_tags_loaded=0
