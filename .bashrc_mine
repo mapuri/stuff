@@ -1,0 +1,9 @@
+# source this at the end of bashrc of the system
+
+# git aware prompt installation:
+# mkdir ~/.bash
+# cd ~/.bash
+# git clone git://github.com/jimeh/git-aware-prompt.git
+export GITAWAREPROMPT=~/.bash/git-aware-prompt
+source "${GITAWAREPROMPT}/main.sh"
+export PS1="\[$txtgrn\]\u:\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\\n$"
