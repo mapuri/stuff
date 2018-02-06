@@ -254,7 +254,7 @@ endfunction
 
 func GoEnv()
     " add pwd to the GOPATH
-    " let $GOPATH .= ':'.$PWD
+    let $GOPATH .= ':'.$PWD
 endfunction
 
 let g:cscope_tags_loaded=0
