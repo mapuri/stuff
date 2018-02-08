@@ -24,6 +24,12 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 " coloschem plugin - add more schemes to colorscheme command
 Plugin 'flazz/vim-colorschemes'
+" auto-pairs - Insert or delete brackets, parens, quotes in pair
+Plugin 'jiangmiao/auto-pairs'
+"neocomplete - keyword completion system
+Plugin 'Shougo/neocomplete.vim'
+"nerdtree - file explorer
+Plugin 'scrooloose/nerdtree'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -142,8 +148,13 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 """""""""""""""""""
 " enable tagbar
 """""""""""""""""""
-let g:tagbar_left = 1
+"let g:tagbar_left = 1
 nnoremap <silent> <F8> :TagbarToggle<CR>
+
+"""""""""""""""""""
+" enable nerd tree
+"""""""""""""""""""
+nnoremap <silent> <F9> :NERDTreeToggle<CR>
 
 """""""""""""""""
 " 80 column and highlight cursor
@@ -290,3 +301,19 @@ function! NumberToggle()
 endfunc
 " use ctrl+n to taggle between numbering
 nnoremap <C-n> :call NumberToggle()<cr>
+
+"*****************************************************************************
+""" Abbreviations
+"*****************************************************************************
+""" no one is really happy until you have this shortcuts
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+cnoreabbrev Qa qall
