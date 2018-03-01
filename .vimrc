@@ -77,6 +77,14 @@ set nocindent
 
 syntax on           " syntax highlighing
 
+"""""""
+" enable spell checker
+" use ]s and [s to move to next or prev misspelt word
+" use z= to see suggestions for the word
+"""""""
+autocmd FileType md,rst,text,yaml setlocal spell spelllang=en_us
+set complete+=kspell
+
 """"""""
 "enjoy file surfing in vim
 """"""""
@@ -197,7 +205,7 @@ let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
 " 80 column and highlight cursor
 """""""""""""""""
 set colorcolumn=80
-highlight ColorColumn ctermbg=red
+highlight ColorColumn ctermbg=grey
 set cursorline
 highlight CursorLine cterm=bold
 
@@ -287,10 +295,6 @@ func GoTags()
     " cscope like key mapping for go-plugin
     nmap <C-\>g :GoDef<CR>
     nmap <C-\>s :GoReferrers<CR>
-    nmap <C-\>c :GoCallees<CR>
-    nmap <C-\>e :GoCallers<CR>
-    nmap <C-\>k :GoCallstack<CR>
-    nmap <C-\>d :GoInfo<CR>
     nmap <C-\>i :GoImplements<CR>
     nmap <C-\>t :GoDeclsDir<CR>
     " package related
@@ -298,6 +302,10 @@ func GoTags()
     nmap <C-\>p :GoDeps<CR>
     " refactor
     nmap <C-\>r :GoRename<CR>
+    " build, test, test-function
+    nmap <C-\>b :GoBuild<CR>
+    nmap <C-\>t :GoTest<CR>
+    nmap <C-\>tf :GoTestFunc<CR>
 endfunction
 
 func GoEnv()
@@ -338,6 +346,24 @@ function! NumberToggle()
 endfunc
 " use ctrl+n to taggle between numbering
 nnoremap <C-n> :call NumberToggle()<cr>
+
+"""""""
+" terminal emulator (requires Vim8)
+"""""""
+" open terminal that closes on exit or ctrl+d
+function! OpenTerminalWithClose()
+    botright split
+    resize 10
+    :call term_start('bash', {'curwin' : 1, 'term_finish' : 'close'})
+endfunction
+nnoremap <F6> :call OpenTerminalWithClose()<cr>
+" open terminal that doesn't close on exit or ctrl+d. This is the default.
+function! OpenTerminal()
+    botright split
+    resize 10
+    :call term_start('bash', {'curwin' : 1})
+endfunction
+nnoremap <F7> :call OpenTerminal()<cr>
 
 "*****************************************************************************
 """ Abbreviations
