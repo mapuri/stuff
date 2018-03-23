@@ -82,7 +82,7 @@ syntax on           " syntax highlighing
 " use ]s and [s to move to next or prev misspelt word
 " use z= to see suggestions for the word
 """""""
-autocmd FileType md,rst,text,yaml setlocal spell spelllang=en_us
+autocmd FileType sh,md,rst,text,yaml setlocal spell spelllang=en_us
 set complete+=kspell
 
 """"""""
@@ -136,7 +136,8 @@ map cl  :call DefCo()<CR>
 map <F1> :<C-U>exe "buffer".v:count<CR> " map F1 to open specific buffer. usage '<buff-num><F3>'
 map <F2> :bprevious<CR>  " map F2 to open previous buffer
 map <F3> :bnext<CR>      " map F3 to open next buffer
-map <F4> :hide<CR>       " map F4 to hide open window/buffer
+map <F4> :bp<bar>sp<bar>bn<bar>hide<CR>  " map F4 to hide open window/buffer, while trying to keep the split
+map <F4>! :hide<CR>       " map F4! to hide open window/buffer and close the split (on the last buffer)
 hi MBEChanged guibg=darkblue ctermfg=green ctermbg=white
 hi MBENormal guibg=darkblue ctermfg=green ctermbg=white
 set hidden               " allow to move around buffer even when there are unsaved changes
@@ -256,11 +257,11 @@ let &stl.='%{StatuslineModeColor()}'
 " Golang related defines
 """"""""""""""""
 let g:go_fmt_command = "goimports"
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
+let g:go_highlight_functions = 0
+let g:go_highlight_methods = 0
+let g:go_highlight_structs = 0
 let g:go_auto_type_info = 1
-let g:go_auto_sameids = 1
+let g:go_auto_sameids = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 let g:tagbar_type_go = {
@@ -308,9 +309,15 @@ func GoTags()
     nmap <C-\>tf :GoTestFunc<CR>
 endfunction
 
-func GoEnv()
-    " add pwd to the GOPATH
-    let $GOPATH = $PWD.':'.$GOPATH
+func GoEnv(path)
+    let path = $PWD
+    if a:path != ''
+        let path = a:path
+    endif
+    " add path to the GOPATH, if it's not already there
+    if stridx($GOPATH, path.':') == -1
+        let $GOPATH = path.':'.$GOPATH
+    endif
 endfunction
 
 let g:cscope_tags_loaded=0
@@ -323,14 +330,14 @@ func CscopeTags()
     endif
 endfunction
 
-au BufWinEnter,BufRead,BufNewFile *.md          setfiletype markdown
-au BufWinEnter,BufRead,BufNewFile *.go          setfiletype go
-au BufWinEnter,BufRead,BufNewFile *.json        setfiletype javascript
+au BufWinEnter,BufRead,BufNewFile,BufEnter *.md          setfiletype markdown
+au BufWinEnter,BufRead,BufNewFile,BufEnter *.go          setfiletype go
+au BufWinEnter,BufRead,BufNewFile,BufEnter *.json        setfiletype javascript
 " load cscope code navigation key map by default
 au BufWinEnter,BufRead,BufNewFile,BufEnter *             call CscopeTags()
 " load golang specific code navigation key maps
-au BufWinEnter,BufRead,BufNewFile,BufEnter *.go          call GoTags()
-au BufWinEnter,BufRead,BufNewFile *.go          call GoEnv()
+au FileType go  call GoTags()
+au FileType go  call GoEnv("")
 """""""""""""""""
 
 """"""
