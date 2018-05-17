@@ -203,9 +203,9 @@ endif
 let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
 
 """""""""""""""""
-" 80 column and highlight cursor
+" 120 column and highlight cursor
 """""""""""""""""
-set colorcolumn=80
+set colorcolumn=120
 highlight ColorColumn ctermbg=grey
 set cursorline
 highlight CursorLine cterm=bold
@@ -371,6 +371,12 @@ function! OpenTerminal()
     :call term_start('bash', {'curwin' : 1})
 endfunction
 nnoremap <F7> :call OpenTerminal()<cr>
+
+""""""""
+" useful mappings to format text
+"""""""
+" format json in the open buffer
+nmap =j :%!python -m json.tool<CR>
 
 "*****************************************************************************
 """ Abbreviations
