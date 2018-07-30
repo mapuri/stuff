@@ -314,8 +314,10 @@ func GoEnv(path)
     if a:path != ''
         let path = a:path
     endif
+    if $GOPATH == ''
+        let $GOPATH = path
     " add path to the GOPATH, if it's not already there
-    if stridx($GOPATH, path.':') == -1
+    elseif stridx($GOPATH, path.':') == -1
         let $GOPATH = path.':'.$GOPATH
     endif
 endfunction
