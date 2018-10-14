@@ -203,12 +203,13 @@ endif
 let g:neocomplete#sources#omni#input_patterns.go = '[^.[:digit:] *\t]\.\w*'
 
 """""""""""""""""
-" 120 column and highlight cursor
+" 120 column and highlight cursor and search
 """""""""""""""""
 set colorcolumn=120
 highlight ColorColumn ctermbg=grey
 set cursorline
-highlight CursorLine cterm=bold
+highlight CursorLine ctermfg=lightgreen cterm=bold
+highlight Search ctermfg=LightMagenta cterm=bold
 
 """""""""""""""""
 " resize current buffer by +/- 2
