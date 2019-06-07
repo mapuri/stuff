@@ -257,6 +257,7 @@ let &stl.='%{StatuslineModeColor()}'
 """""""""""""""""
 " Golang related defines
 """"""""""""""""
+let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 0
 let g:go_highlight_methods = 0
@@ -295,7 +296,9 @@ let g:tagbar_type_go = {
 
 func GoTags()
     " cscope like key mapping for go-plugin
-    nmap <C-\>g :GoDef<CR>
+
+    " make ctrl+g act like jump to def and show references as well
+    nmap <C-\>g :GoDef<CR>:GoReferrers<CR>
     nmap <C-\>s :GoReferrers<CR>
     nmap <C-\>i :GoImplements<CR>
     nmap <C-\>t :GoDeclsDir<CR>
