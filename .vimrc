@@ -257,6 +257,10 @@ let &stl.='%{StatuslineModeColor()}'
 """""""""""""""""
 " Golang related defines
 """"""""""""""""
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+"let g:go_def_mode='godef'
+"let g:go_info_mode='gocode'
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 0
@@ -383,6 +387,20 @@ nnoremap <F7> :call OpenTerminal()<cr>
 """""""
 " format json in the open buffer
 nmap =j :%!python -m json.tool<CR>
+" double quote text in visual mode. <Leader> is \ key
+vmap <silent> <Leader>" :call Quote('"', '"')<CR>
+" single quote text in visual mode. <Leader> is \ key
+vmap <silent> <Leader>' :call Quote("'", "'")<CR>
+" parenthesise text in visual mode. <Leader> is \ key
+vmap <silent> <Leader>( :call Quote("(", ")")<CR>
+
+function! Quote(sQuote, eQuote)
+  let save = @"
+  silent normal gvy
+  let @" = a:sQuote . @" . a:eQuote
+  silent normal gvp
+  let @" = save
+endfunction
 
 "*****************************************************************************
 """ Abbreviations
