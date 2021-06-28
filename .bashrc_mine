@@ -8,9 +8,9 @@ export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
 export PS1="\[$txtgrn\]\u:\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]\\n$"
 
-# Go path related exports (this is machine/home dir dependent)
-export GOPATH=/home/mpuri/work
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+## Go path related exports (this is machine/home dir dependent)
+#export GOPATH=/home/mpuri/work
+#export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 # tmux config                                                                                                             
 # mosh 10.9.255.45 -- tmux -2u attach -d -t s
