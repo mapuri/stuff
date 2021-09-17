@@ -14,3 +14,6 @@ export PS1="\[$txtgrn\]\u:\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txt
 
 # tmux config                                                                                                             
 # mosh 10.9.255.45 -- tmux -2u attach -d -t s
+
+# use specific ssh key for git
+# GIT_SSH_COMMAND="ssh -i ~/.ssh/github_mapuri_id_rsa" git push origin master
