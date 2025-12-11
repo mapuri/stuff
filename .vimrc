@@ -18,6 +18,9 @@ Plugin 'ctrlpvim/ctrlp.vim'
 " tagbar plugin - for navigating source
 Plugin 'majutsushi/tagbar'
 " vimpowerline plugin - for status line
+" vim airline setting 'airline_powerline_fonts' requires fonts installed (on local machine running
+" the terminal) from: https://github.com/powerline/fonts.
+" After installing set the font to: 'Meslo LG S' in iTerm2
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 " git integration
@@ -145,9 +148,6 @@ set hidden               " allow to move around buffer even when there are unsav
 """""""""""""""""""
 " customize vim-airline
 """""""""""""""""""
-" 'airline_powerline_fonts' requires fonts installed (on local machine running
-" the terminal) from: https://github.com/powerline/fonts.
-" After installing set the font to: 'Meslo LG S' in iTerm2
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'jellybeans'
 " lightweight buffer explorer
