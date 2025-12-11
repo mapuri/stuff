@@ -29,5 +29,12 @@ eval "$(fzf --bash)"
 # tmux config                                                                                                             
 # mosh 10.9.255.45 -- tmux -2u attach -d -t s
 
-# use specific ssh key for git
+# **** Accessing personal github repos ****
+# SSH: use specific ssh key for git
 # GIT_SSH_COMMAND="ssh -i ~/.ssh/github_mapuri_id_rsa" git push origin master
+# HTTPS: if the company allows https instead, then:
+# - generate a Personal Access Token (PAT) with repo access
+# - store in someplace secure using: echo <token> > ~/.ssh/PERSONAL_GITHUB_PAT.txt
+# - update the remote URL to include github username using: git remote set-url origin https://mapuri@github.com/mapuri/stuff.git
+# - verify that it is updated by using: git remote -v 
+# - now git pull and push should prompt you for your password, paste the PAT 
