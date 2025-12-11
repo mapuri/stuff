@@ -21,6 +21,7 @@ Plugin 'majutsushi/tagbar'
 " vim airline setting 'airline_powerline_fonts' requires fonts installed (on local machine running
 " the terminal) from: https://github.com/powerline/fonts.
 " After installing set the font to: 'Meslo LG S' in iTerm2
+" Also while at it setup up the colors for default profile 'iTerm2 -> Settings -> Profiles -> Colors' to Solarized Dark
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 " git integration
@@ -51,6 +52,7 @@ filetype plugin indent on    " required
 
 " Vimrc file, http://phuzz.org
 
+"set mouse=a         " cursor follows the mouse scroll (disabled as it seems to interfere with copy selected text)
 set ls=2            " allways show status line
 set tabstop=4       " numbers of spaces of tab character
 set expandtab
