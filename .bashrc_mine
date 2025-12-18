@@ -16,7 +16,8 @@ export PS1="\[$txtgrn\]\u:\w \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txt
 # kubectx, k9s - manage kubernetes resources
 #-> brew install kubectl kubectx k9s
 ## bash autocompletion-bash autocompletion support, after the install follow 
-## instructions from brew to update bash_profile with necessary command
+## instructions from brew to update bash_profile with necessary comman
+## Note: bash completion only works if git is also installed brew (brew install git)
 #-> brew install bash-completion
 
 # requires fzf to be installed, see above
